@@ -11,8 +11,10 @@ from django.core.mail import EmailMessage
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
+def home(request):
+    return render(request, 'home1.html')
 def profile(request):
     return render(request, 'profile.html')
 def account_confirm_success(request):
@@ -30,7 +32,7 @@ def account_confirm_email(request, uid, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        return redirect('account_confirm_success')
+        return redirect('http://127.0.0.1:8000/')
     # Si el usuario no existe o el token no es válido, muestra un mensaje de error
     else:
         return render(request, 'account_confirm_error.html')
@@ -51,7 +53,6 @@ def send_confirmation_email(request, user):
     email.send()
 class LoginApp(LoginView):
     template_name = 'login.html'
-
     def form_valid(self, form):
         # Si el formulario es válido, el usuario se registra o inicia sesión
         response = super().form_valid(form)
@@ -62,10 +63,9 @@ class LoginApp(LoginView):
             self.request.user.is_active = False
             self.request.user.save()
 
-            # Envía un correo electrónico de confirmación
-
-
-        return response
+           
+        
+            return response
 
 
 

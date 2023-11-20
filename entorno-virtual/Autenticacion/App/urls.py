@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import LoginApp,  profile
+from . import views
 
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
+    path('', views.home, name='home'),
 
 ]
 
