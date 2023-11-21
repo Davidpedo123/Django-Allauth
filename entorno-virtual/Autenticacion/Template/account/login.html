@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+
+{% load i18n %}
+{% load socialaccount %}
+<a href="{% provider_login_url 'google' %}">Iniciar sesión con Google</a>
+{% load allauth account socialaccount %}
+
+{% block head_title %}
+{% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+{% element h1 %}
+{% endelement %}
+{% load crispy_forms_tags %}
+
+
+
+<div class="col-md-4 mx-auto">
+
+
+
+
+    <h1>Sign in</h1>
+
+    <p>
+        {% blocktrans %}If you have not created an account yet, then please
+        <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+    </p>
+    {% url 'account_login' as login_url %}
+    {% element form form=form method="post" action=login_url tags="entrance,login" %}
+    <!-- Añade el atributo 'style' para ajustar el ancho del formulario -->
+    {{ form | crispy}}
+    {% slot body %}
+    {% csrf_token %}
+
+    {% element fields form=form unlabeled=True %}
+    {% endelement %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    {% endslot %}
+    {% slot actions %}
+    {% element button class="btn btn-primary" type="submit" tags="prominent,login" %}
+    {% trans "Sign In" %}
+    {% endelement %}
+    {% endslot %}
+    {% endelement %}
+    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+</div>
+{% endblock content %}

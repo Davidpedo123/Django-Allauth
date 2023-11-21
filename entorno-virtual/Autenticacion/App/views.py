@@ -13,6 +13,8 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
+from allauth.socialaccount.views import SignupView 
+
 def home(request):
     return render(request, 'home1.html')
 def profile(request):
@@ -67,7 +69,5 @@ class LoginApp(LoginView):
         
             return response
 
-
-
-def postlogin(request):
-    return render(request, 'postlogin.html')
+class SigSocial(SignupView):
+    template_name = "signupsocial.html"
