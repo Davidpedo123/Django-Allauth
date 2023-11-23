@@ -1,19 +1,17 @@
 # Django-Allauth
 In this project, we use the Django-Allauth libraries, improving the authentication of our site along with email authentication methods and with the provider of your choice, in this case, we use GitHub.
 
-🌐 `Iniciar el proyecto`: Para acceder a la pagina index, tendria que ir a la carpeta `entorno-virtual/Autenticacion/` , 
-he de ingresar el comando `python3 manage.py runserver` , el cual iniciara un servidor local en la direccion `127.0.0.1:8000`.
+🌐 `Start the project`: To access the index page, you would have to go to the folder `entorno-virtual/Autenticacion/`, you have to enter the command `python3 manage.py runserver`, which will start a local server at the address 127.0.0.1:8000.
 ______________________________________________________________________________________________________________________________________
 
-📚  `Path de dependencias`: `entorno-virtual/Lib/site-packages` De tener algun problema con las dependencias y modulos instale las utilizadas que fueron,
-Django y Django-allauth, `pip install django` y `pip install django-allauth`.
+
+📚 `Path of dependencies`: `entorno-virtual/Lib/site-packages` If you have any problem with the dependencies and modules, install the ones that were used, which are Django and Django-allauth, `pip install django` and `pip install django-allauth`.
 ______________________________________________________________________________________________________________________________________
 
-🧠 `Contexto`: en la carpeta `entorno-virtual/Autenticacion` se encuentra la carpeta raiz de todo nuestro proyecto, en ellas se encuentra la app raiz que es `entorno-virtual/Autenticacion/Autenticacion` , en esta se encuentra el `settings.py` de todo nuestro proyecto, tienen tener cuidado con los cambios en este archivo, tambien otro archivo muy importante es el `urls.py` el cual ya esta incluido pero debemos siempre incluir el `path('', include ('(nombre de la app).urls'))`, ya que de esta forma podra aceptar las url que creamos en nuestras app que no son lo mismo que nuestra app raiz, estas las creamos con `python3 manage.py startapp (name de la app)`.
+🧠 `Context`: in the folder `entorno-virtual/Autenticacion` is the root folder of our entire project, in it is the root app which is `entorno-virtual/Autenticacion/Autenticacion`, in this is the `settings.py` of our entire project, you have to be careful with the changes in this file, also another very important file is the `urls.py` which is already included but we must always include the path('', include ('(app name).urls')), as this way it will be able to accept the urls that we create in our apps that are not the same as our root app, these we create with `python3 manage.py startapp (app name)`.
 ______________________________________________________________________________________________________________________________________
 
-🚀 `Panel de Administrador`: El panel de administrador donde podremos administrar todos nuestros proyectos se encuentra en `127.0.0.1:8000/admin` pero tendremos que crear un SuperUser, 
-con `python3 manage.py createsuperuser`
+🚀 `Admin Panel`: The admin panel where we can manage all our projects is located at 127.0.0.1:8000/admin but we will have to create a SuperUser, with `python3 manage.py createsuperuser`.
 ______________________________________________________________________________________________________________________________________
 
 
