@@ -1,83 +1,49 @@
 {% extends 'base.html' %}
+{% load static%}
+{% block content %}
 
-{% block content%}
+<link rel="stylesheet" href="{% static 'css/styles.home.css' %}">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-image: url("static/css/imgcss/fondo3.jpg");
+
+        opacity: 1;
+    }
+</style>
 <div class="container px-4 py-5" id="icon-grid">
-    <h2 class="pb-2 border-bottom">Proyects</h2>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-        <div class="col d-flex align-items-start">
-            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                <use xlink:href="#bootstrap" />
-            </svg>
-            <div>
-                <h4 class="fw-bold mb-0">Featured title</h4>
-                <p>Paragraph of text beneath the heading to explain the heading.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                <use xlink:href="#cpu-fill" />
-            </svg>
-            <div>
-                <h4 class="fw-bold mb-0">Featured title</h4>
-                <p>Paragraph of text beneath the heading to explain the heading.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                <use xlink:href="#calendar3" />
-            </svg>
-            <div>
-                <h4 class="fw-bold mb-0">Featured title</h4>
-                <p>Paragraph of text beneath the heading to explain the heading.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                <use xlink:href="#home" />
-            </svg>
-            <div>
-                <h4 class="fw-bold mb-0">Featured title</h4>
-                <p>Paragraph of text beneath the heading to explain the heading.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                <use xlink:href="#speedometer2" />
-            </svg>
-            <div>
-                <h4 class="fw-bold mb-0">Featured title</h4>
-                <p>Paragraph of text beneath the heading to explain the heading.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                <use xlink:href="#toggles2" />
-            </svg>
-            <div>
-                <h4 class="fw-bold mb-0">Featured title</h4>
-                <p>Paragraph of text beneath the heading to explain the heading.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                <use xlink:href="#geo-fill" />
-            </svg>
-            <div>
-                <h4 class="fw-bold mb-0">Featured title</h4>
-                <p>Paragraph of text beneath the heading to explain the heading.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                <use xlink:href="#tools" />
-            </svg>
-            <div>
-                <h4 class="fw-bold mb-0">Featured title</h4>
-                <p>Paragraph of text beneath the heading to explain the heading.</p>
-            </div>
-        </div>
+    <h2 class="pb-2 border-bottom"> Especiales en Northwind!</h2>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5" id="productos">
+        <!-- Los productos de la API se cargarán aquí -->
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $.getJSON("/api/products/Discontain", function (data) {
+            var productos = "";
+            $.each(data, function (key, value) {
+                productos += '<div class="col d-flex align-items-start">';
+                productos += '<svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap" /></svg>';
+                productos += '<div>';
+                if (value.imagen) {
+                    productos += "<img src='" + value.imagen + "' alt='Imagen del producto'>";
+                }
+                productos += '<h4 class="fw-bold mb-0">' + value.nombre + '</h4>';
+                productos += '<p style="margin-top: 20px; color:red; background-color: #f0f0f0; padding: 5px;"><del>Precio: ' + value.precio + '</del></p>'; // Reducimos el margen superior al precio
+                productos += '<p style="color:green; background-color: #f0f0f0; padding: 5px;">Ahora: ' + value.Discontinued + '</p>';
+                productos += '</div></div>';
+            });
+            $("#productos").html(productos);
+        });
+    });
+
+
+
+</script>
 {% endblock %}

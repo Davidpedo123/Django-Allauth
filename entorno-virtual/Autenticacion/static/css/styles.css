@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+    /* Asegúrate de que la URL apunta a la ubicación correcta de tu imagen */
+    background-image: url("imgcss/d1.jpg");
+    opacity: 0.5, ;
+    /* Centra y escala la imagen de fondo */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+header {
+    background-color: #333;
+    opacity: 0.5;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+.beverages {
+    color: #FFFFFF;
+    /* Cambia el color del texto a blanco */
+    font-family: Arial, sans-serif;
+    /* Cambia la fuente a Arial */
+    font-size: 20px;
+    /* Cambia el tamaño de la fuente a 20px */
+    font-weight: bold;
+    /* Hace que el texto sea negrita */
+}
+
+
+
+
+#categories {
+
+
+    color: #ffffff;
+    text-align: center;
+
+}
+
+section {
+    margin: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #555;
+}

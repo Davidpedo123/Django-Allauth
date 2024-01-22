@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <title>Tienda de Productos</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Tienda de Productos</h1>
+    </header>
+
+    <section id="categories">
+        <h2 class='categorias'>Categorías</h2>
+        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div>
+                <a href="{% url 'beverages' %}" onclick="showProducts('Beverages')">
+                    <h1 class="beverages">Beverages</h1>
+                    <img src="{% static 'css/imgcss/chai.jpeg' %}" class="chai">
+                </a>
+
+            </div>
+            <!-- Repite para cada elemento -->
+        </div>
+    </section>
+
+    <section id="products">
+        <!-- La lista de productos se mostrará aquí -->
+    </section>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+</body>
+
+</html>

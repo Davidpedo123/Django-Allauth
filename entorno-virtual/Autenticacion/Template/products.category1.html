@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Productos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.C1.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Productos</h2>
+    <div id="productos"></div>
+
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/api/products/", function (data) {
+                var productos = "";
+                $.each(data, function (key, value) {
+                    if (value.imagen) {
+                        productos += "<img src='" + value.imagen + "' alt='Imagen del producto'>";
+                    }
+                    productos += "<p>Nombre del producto: " + value.nombre + "</p>";
+                    productos += "<p>Precio: " + value.precio + "</p>";
+                    productos += "<p>Unidades en stock: " + value.UnitsInStock + "</p>";
+                    productos += "<hr>";
+                });
+                $("#productos").html(productos);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

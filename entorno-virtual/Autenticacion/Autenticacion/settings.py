@@ -31,15 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     
-
-  # Third party apps
     'django.contrib.sites', # Django app required for using allauth
     'allauth', 
     'allauth.account', 
@@ -48,6 +46,7 @@ INSTALLED_APPS = [
     'App',
     'crispy_forms',
     'crispy_bootstrap5',
+  
     
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -92,12 +91,19 @@ WSGI_APPLICATION = 'Autenticacion.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
 DATABASES = {
+    'northwind': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'northwind.db',
+    },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation

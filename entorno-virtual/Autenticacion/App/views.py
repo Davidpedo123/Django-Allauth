@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+import requests
 from allauth.account.utils import complete_signup
 from allauth.account import app_settings
 from django.shortcuts import render
@@ -14,8 +14,65 @@ from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from allauth.socialaccount.views import SignupView 
+from rest_framework import generics
+from .models import Producto, ProductsDescuento
+from .serializers import ProductoSerializer, DescuentoSerializer
+from rest_framework.response import Response
+
+
+
+class ProductoListCreateView(generics.ListCreateAPIView):
+    serializer_class = ProductoSerializer
+    queryset = Producto.objects.none()  # queryset vacío
+
+    def list(self, request, *args, **kwargs):
+        queryset = Producto.obtener_productos_northwind()
+        serializer = ProductoSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+      
+def Products_Category1(request):
+    url = 'http://127.0.0.1:8000/api/products/'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+
+        # Ahora puedes acceder a los datos de la API
+    else:
+        data = []
+
+    return render(request, 'products.category1.html', {'data': data})
+class ProductoListCreateViewDiscontain(generics.ListCreateAPIView):
+    serializer_class = DescuentoSerializer
+    queryset = ProductsDescuento.objects.none() 
+    
+    def list(self, request, *args, **kwargs):
+        queryset = ProductsDescuento.ObtenerDescuentosDef()
+        serializer = DescuentoSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 def home(request):
+    url = 'http://127.0.0.1:8000/api/products/Discontain/'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+
+        # Ahora puedes acceder a los datos de la API
+    else:
+        data = []
+
+    return render(request, 'home1.html', {'data': data})
+    
+    
+
+
+def Products(request):
+    return render(request, 'products.html')
+
+def home(request):
+    
     return render(request, 'home1.html')
 def profile(request):
     return render(request, 'profile.html')
