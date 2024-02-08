@@ -40,3 +40,21 @@ class ProductsDescuento(models.Model):
             productos_northwind_discon.append(cls(nombre=nombre, precio=precio, Discontinued=discontinued, imagen=imagen))
        
         return productos_northwind_discon
+class OrdersForRegion(models.Model):
+    
+    total_orders = models.IntegerField()
+    ShipRegion = models.CharField(max_length = 100)
+
+    @classmethod
+    def ObtenerOrders(cls):
+        with connections['northwind'].cursor() as cursor:
+            cursor.execute("SELECT COUNT(*) AS total_orders, ShipRegion FROM Orders WHERE ShipRegion IN ('Western Europe', 'Southern Europe', 'Scandavia', 'South America', 'North America', 'Eastern Europe', 'Central America', 'British Isles') GROUP BY ShipRegion;")
+            results = cursor.fetchall()
+
+        obtenerResult = []
+        for result in results:
+            total_orders, ShipRegion = result
+            obtenerResult.append(cls(ShipRegion=ShipRegion, total_orders=total_orders))
+
+       
+        return obtenerResult

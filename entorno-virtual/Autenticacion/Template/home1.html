@@ -2,14 +2,57 @@
 {% load static%}
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/styles.home.css' %}">
+<link rel="stylesheet" href="{% static 'css/output.css' %}">
 <style>
     body {
         font-family: Arial, sans-serif;
         line-height: 1.6;
-        background-image: url("static/css/imgcss/fondo3.jpg");
-
+        background-color: white;
+        background-size: cover;
+        /* Asegura que la imagen de fondo cubra todo el cuerpo */
+        background-repeat: no-repeat;
+        /* Evita que la imagen de fondo se repita */
+        background-position: center;
+        /* Centra la imagen de fondo */
         opacity: 1;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
     }
 </style>
 <div class="container px-4 py-5" id="icon-grid">
@@ -22,28 +65,40 @@
         <!-- Los productos de la API se cargarán aquí -->
     </div>
 </div>
+<div className="relative w-96 m-3 cursor-pointer border-2 shadow-lg rounded-xl items-center">
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/api/products/Discontain", function (data) {
+                var productos = "";
+                $.each(data, function (key, value) {
+                    productos += '<div class="col d-flex align-items-start">';
+                    productos += '<svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap" /></svg>';
+                    productos += '<div>';
+                    if (value.imagen) {
+                        productos += "<img src='" + value.imagen + "' alt='Imagen del producto'>";
+                    }
+                    productos += '<h4 class="fw-bold mb-0">' + value.nombre + '</h4>';
+                    productos += '<p style="margin-top: 20px; color:red; background-color: #f0f0f0; padding: 5px;"><del>Precio: ' + value.precio + '</del></p>'; // Reducimos el margen superior al precio
+                    productos += '<p style="color:green; background-color: #f0f0f0; padding: 5px;">Ahora: ' + value.Discontinued + '</p>';
+                    productos += '</div></div>';
+                });
+                $("#productos").html(productos);
 
-<script>
-    $(document).ready(function () {
-        $.getJSON("/api/products/Discontain", function (data) {
-            var productos = "";
-            $.each(data, function (key, value) {
-                productos += '<div class="col d-flex align-items-start">';
-                productos += '<svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap" /></svg>';
-                productos += '<div>';
-                if (value.imagen) {
-                    productos += "<img src='" + value.imagen + "' alt='Imagen del producto'>";
-                }
-                productos += '<h4 class="fw-bold mb-0">' + value.nombre + '</h4>';
-                productos += '<p style="margin-top: 20px; color:red; background-color: #f0f0f0; padding: 5px;"><del>Precio: ' + value.precio + '</del></p>'; // Reducimos el margen superior al precio
-                productos += '<p style="color:green; background-color: #f0f0f0; padding: 5px;">Ahora: ' + value.Discontinued + '</p>';
-                productos += '</div></div>';
+
             });
-            $("#productos").html(productos);
         });
-    });
 
+    </script>
+    <div class="container px-4 py-5" id="icon-grid">
+        <h1 class="pb-1 border-bottom"> Northwind por todo el mundo!</h1>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <img src="{% static 'css/imgcss/Grafico.png' %}" alt="Gráfico de Órdenes por Región">
+        <br>
+        <h2 class="pb-1 border-bottom"> Distribución de los pedidos de Northwind por región!</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5" id="productos">
 
+        </div>
+    </div>
 
-</script>
+</div>
 {% endblock %}

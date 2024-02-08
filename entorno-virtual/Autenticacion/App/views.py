@@ -15,9 +15,12 @@ from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from allauth.socialaccount.views import SignupView 
 from rest_framework import generics
-from .models import Producto, ProductsDescuento
-from .serializers import ProductoSerializer, DescuentoSerializer
+from .models import Producto, ProductsDescuento, OrdersForRegion
+from .serializers import ProductoSerializer, DescuentoSerializer, OrderRegionSerializer
 from rest_framework.response import Response
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 
 
@@ -29,7 +32,18 @@ class ProductoListCreateView(generics.ListCreateAPIView):
         queryset = Producto.obtener_productos_northwind()
         serializer = ProductoSerializer(queryset, many=True)
         return Response(serializer.data)
+class OrdersListCreateView(generics.ListCreateAPIView):
+    serializer_class = OrderRegionSerializer
+    queryset = OrdersForRegion.objects.none()  # queryset vacío
 
+    def list(self, request, *args, **kwargs):
+        queryset = OrdersForRegion.ObtenerOrders()
+        serializer = OrderRegionSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+
+    # Retorna la página HTML con la imagen del gráfi
       
 def Products_Category1(request):
     url = 'http://127.0.0.1:8000/api/products/'

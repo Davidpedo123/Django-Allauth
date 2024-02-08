@@ -46,9 +46,17 @@ INSTALLED_APPS = [
     'App',
     'crispy_forms',
     'crispy_bootstrap5',
+
+    'theme',
+    
+  
   
     
 ]
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = "C:/Users/pc/Downloads/Django-Allauth/entorno-virtual/Scripts/npm.cmd"
+
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
