@@ -58,3 +58,11 @@ class OrdersForRegion(models.Model):
 
        
         return obtenerResult
+
+class DateExcel(models.Model):
+    id = models.AutoField(primary_key=True)
+    first_name = models.CharField(max_length = 100)
+    last_name = models.CharField(max_length = 100)
+    email = models.EmailField(max_length=70, blank=True, unique=True)
+    gender = models.CharField(max_length = 100)
+    License = models.CharField(max_length = 100)

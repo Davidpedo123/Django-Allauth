@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Search Empleoyes</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Empleoyes Info</h2>
+
+    <!-- Formulario de búsqueda -->
+    <form id="search-form">
+        <h3>Ingrese su Cedula</h3>
+        <input type="text" id="search-input" placeholder="Buscar por License">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div id="License"></div>
+
+    <script>
+        $(document).ready(function () {
+            // Cuando se envíe el formulario de búsqueda
+            $('#search-form').on('submit', function (event) {
+                event.preventDefault();  // Evita que la página se recargue
+
+                var license = $('#search-input').val();  // Obtiene el valor del campo de búsqueda
+
+                // Hace una solicitud GET a la API
+                $.getJSON("/api/db2", function (data) {
+                    var License = "";
+                    var found = false;
+
+                    $.each(data, function (index, value) {
+                        if (value.License === license) {
+                            found = true;
+                            License += "<p>First Name: " + value.first_name + "</p>";
+                            License += "<p>Last Name: " + value.last_name + "</p>";
+                            License += "<p>email: " + value.email + "</p>";
+                            License += "<p>Gender: " + value.gender + "</p>";
+                            License += "<p>License: " + value.License + "</p>";
+                            License += "<hr>";
+                        }
+                    });
+
+                    if (!found) {
+                        License = "<p>No encontrado</p>";
+                    }
+
+                    $("#License").html(License);
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

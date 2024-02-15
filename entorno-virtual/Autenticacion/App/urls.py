@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from App.views import SigSocial, Products, Products_Category1,   ProductoListCreateView, ProductoListCreateViewDiscontain, OrdersListCreateView
+from App.views import SigSocial, Products, Products_Category1,   ProductoListCreateView, ProductoListCreateViewDiscontain, OrdersListCreateView, DateExcelListCreateView, Search
 from . import views
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
@@ -46,5 +46,7 @@ urlpatterns = [
     path('api/products/',  ProductoListCreateView.as_view(), name='mymodel-list-create'),
     path('api/products/Discontain',  ProductoListCreateViewDiscontain.as_view(), name='mymodel-list-create-Disc'),
     path('api/OrdersRegion',  OrdersListCreateView.as_view(), name='orders-list'),
+    path('api/db2', DateExcelListCreateView.as_view(), name='db-2'),
+    path("Search/", Search, name="search"),
 ]
 

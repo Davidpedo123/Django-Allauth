@@ -16,12 +16,53 @@ from django.shortcuts import redirect
 from allauth.socialaccount.views import SignupView 
 from rest_framework import generics
 from .models import Producto, ProductsDescuento, OrdersForRegion
-from .serializers import ProductoSerializer, DescuentoSerializer, OrderRegionSerializer
+from .serializers import ProductoSerializer, DescuentoSerializer, OrderRegionSerializer, DateExcel
 from rest_framework.response import Response
 import matplotlib.pyplot as plt
 import numpy as np
+from rest_framework import viewsets
+from .models import DateExcel
+from .serializers import DataExcel
+import pandas as pd
+
+class DateExcelListCreateView(generics.ListCreateAPIView):
+    queryset = DateExcel.objects.all()
+    serializer_class = DataExcel
+
+    def list(self, request, *args, **kwargs):
+        self.load_data_from_excel()
+        queryset = DateExcel.objects.all()
+        serializer = DataExcel(queryset, many=True)
+        return Response(serializer.data)
+
+    def load_data_from_excel(self):
+        df = pd.read_excel('DataEmpeloyes#2.xlsx')
+        for index, row in df.iterrows():
+            if not DateExcel.objects.filter(email=row['email']).exists():
+                DateExcel.objects.create(
+                    first_name=row['first_name'],
+                    last_name=row['last_name'],
+                    email=row['email'],
+                    gender=row['gender'],
+                    License=row['License']
+                )
 
 
+
+
+
+def Search(request):
+    url = 'http://127.0.0.1:8000/api/db2/'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+
+        # Ahora puedes acceder a los datos de la API
+    else:
+        data = []
+
+    return render(request, 'LicenseInfo.html', {'data': data})  
 
 
 class ProductoListCreateView(generics.ListCreateAPIView):
